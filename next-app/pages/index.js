@@ -1,4 +1,5 @@
 import styles from "../styles/Home.module.css";
+import Link from 'next/link';
 
 const IndexPage = () => {
   return (
@@ -7,6 +8,8 @@ const IndexPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <Link href="/second">New page</Link>
 
         <p className={styles.description}>
           Get started by editing{" "}

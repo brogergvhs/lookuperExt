@@ -1,5 +1,7 @@
 .container {
   padding: 0 2rem;
+  min-width: 600px!important;
+  min-height: 600px!important;
 }
 
 .main {

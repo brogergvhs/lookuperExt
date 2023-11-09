@@ -1,0 +1,186 @@
+:root {
+    --main-bg: #202124;
+    --main-text: #BEC1C5;
+    --main-accent: #A2CE40;
+    --fav-accent: #ffc107;
+    --sec-text: #8e9297;
+    --s: 2s;
+
+    --error: #ff6c6c;
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--main-text);
+    font-size: 16px;
+}
+::-moz-selection {
+    color: var(--main-accent);
+    text-decoration: underline var(--main-accent);
+}
+::selection {
+    color: var(--main-accent);
+    text-decoration: underline var(--main-accent);
+}
+
+button.btn {
+    height: 2rem;
+    min-width: 2rem;
+}
+input[type=radio] {
+    accent-color: var(--main-accent);
+}
+
+.toolbar {
+    position: absolute;
+}
+
+.vs-hidden {
+    visibility: hidden;
+}
+.error-brdr {
+    border-color: var(--error)!important;
+}
+.errorNumbs {
+    width: 80%;
+    margin: 0 auto;
+}
+.errorCable {
+    width: 100%;
+}
+
+/* global classes */
+.fs-11 {
+    font-size: .6875rem;
+    line-height: .6875rem;
+}
+.acc-color {
+    color: var(--main-accent);
+}
+.fav-color {
+    color: var(--fav-accent);
+}
+.sec-color {
+    color: var(--sec-text);
+}
+
+.presetColorPicker {
+    width: 1.5625rem;
+    height: 1.5625rem;
+    border-radius: 50%;
+    border: 1px solid var(--sec-text);
+    cursor: pointer;
+}
+.def-lines > span {
+    font-size: 11px;
+    opacity: 0.7;
+}
+.numCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    border: 1px solid var(--main-accent);
+}
+.addInfo {
+    width: fit-content;
+    padding: .0625rem 0.5rem;
+    border: 1px solid var(--main-text);
+    border-radius: 1rem;
+    font-size: .875rem;
+    opacity: .85;
+    margin: 0 .3125rem .3125rem 0;
+    cursor: pointer;
+}
+.presetColorPicker:hover,
+.addInfo:hover {
+    border-color: var(--main-accent);
+    color: var(--main-accent);
+    scale: 1.05;
+    transition: .1s linear;
+}
+.historyItem {
+    cursor: pointer;
+}
+.historyItem:hover {
+    scale: 1.01;
+    transition: .1s linear;
+}
+.b-l-acc {
+    border-left: 2px solid var(--main-accent);
+}
+.b-b-acc {
+    border-bottom: 2px solid var(--main-accent);
+}
+.b-b-acc.fav {
+    border-color: var(--fav-accent);
+}
+.w-fit {
+    width: fit-content;
+}
+
+.form-control {
+    padding: .2rem .75rem;
+    background-color: var(--main-bg);
+    border-color: var(--main-text);
+    color: var(--main-text);
+}
+
+.btn-outline-info {
+    color: var(--main-accent)!important;
+    border-color: var(--main-accent)!important;
+}
+.btn-outline-info:hover {
+    background-color: var(--main-accent)!important;
+    border-color: var(--main-accent)!important;
+    color: black !important;
+}
+.btn-outline-info.active {
+    background-color: var(--main-accent)!important;
+    border-color: var(--main-accent)!important;
+    color: black !important;
+}
+
+.btn-outline-warning {
+    color: var(--fav-accent)!important;
+    border-color: var(--fav-accent)!important;
+}
+.btn-outline-warning:hover {
+    background-color: var(--fav-accent)!important;
+    border-color: var(--fav-accent)!important;
+    color: black !important;
+}
+.btn-outline-warning.active {
+    background-color: var(--fav-accent)!important;
+    border-color: var(--fav-accent)!important;
+    color: black !important;
+}
+
+.btn-outline-secondary {
+    color: var(--sec-text)!important;
+    border-color: var(--sec-text)!important;
+}
+.btn-outline-secondary:hover {
+    background-color: var(--sec-text)!important;
+    border-color: var(--sec-text)!important;
+    color: black !important;
+}
+.btn-outline-secondary.active {
+    background-color: var(--sec-text)!important;
+    border-color: var(--sec-text)!important;
+    color: black !important;
+}
+
+.form-control:focus {
+    border-color: var(--main-accent)!important;
+    box-shadow: none !important;
+    background-color: var(--main-bg);
+    color: var(--main-text);
+}
+
+
+
+
+
