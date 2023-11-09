@@ -1,12 +1,13 @@
 import Link from 'next/link';
+import Layout from '@/components/Layout';
 
-const IndexPage = () => {
+export default IndexPage = () => {
   return (
-    <div>
-      Main page
-      <Link href="/second">Second page</Link>
-    </div>
+    <Layout>
+      <div>
+        Main page
+        <Link href="/second">Second page</Link>
+      </div>
+    </Layout>
   );
 };
-
-export default IndexPage;
