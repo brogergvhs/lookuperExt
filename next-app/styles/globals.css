@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 
+:root {
+  --main-bg: #202124;
+  --main-text: #BEC1C5;
+  --main-accent: #A2CE40;
+  --fav-accent: #ffc107;
+  --sec-text: #8e9297;
+  --s: 2s;
+
+  --error: #ff6c6c;
+}
+
 html,
 body {
   padding: 0;
