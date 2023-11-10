@@ -1,30 +1,30 @@
-import {useRouter} from "next/router";
-import Link from "next/link";
+import { useState } from "react";
+import CustomInput from "./pageComponents/wordComponents/CustomInput";
 
-export default function Nav() {
+export default function Nav({activePage, setActivePage, setWordData}) {
+
   const menuItems = [
-    {url: "/favourites", icon: "", color: ""},
-    {url: "/history", icon: "", color: ""},
-    {url: "input"},
-    {url: "/settings", icon: "", color: ""},
+    {trigger: "favourites", icon: "", color: ""},
+    {trigger: "history", icon: "", color: ""},
+    {trigger: "input"},
+    {trigger: "settings", icon: "", color: ""},
+    {trigger: "error"}
   ];
-  const router = useRouter();
-  const {pathname} = router;
 
   return (
     <div className="navBar">
-        <h2 class="text-center">Words checked: 
-            {{wordAmount}}
-            <span class="sec-color">({{fetchAmount}})</span>
+        <h2 className="text-center">Words checked: 
+            {/* {wordAmount} */}
+            {/* <span class="sec-color">({fetchAmount})</span> */}
         </h2>
         <div className="actions">
             {menuItems.map((item, index) => (
-                {...item.url == "input" ? (
-                    <input placeholder="Check some words"/>
+                {...item.trigger == "input" ? (
+                    <CustomInput key="customInput" setActivePage={setActivePage} setWordData={setWordData}></CustomInput>
                 ) : (
-                    <Link className={pathname.includes(item.url) ? 'btn btn-sm btn-outline-info me-3' : ''} href={item.url}>
-                        {item.icon}
-                    </Link>
+                    <div key={item.trigger} onClick={() => setActivePage(item.trigger)} className='btn btn-sm btn-outline-info me-3'>
+                        {item.trigger}
+                    </div>
                 )}
             ))}
         </div>

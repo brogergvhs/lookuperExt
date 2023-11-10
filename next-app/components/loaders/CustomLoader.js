@@ -1,11 +1,8 @@
-import {useRouter} from "next/router";
-import Link from "next/link";
-
 export default function CustomLoader({type}) {
 
   switch (type) {
     case "packman":
-        return ( <div id="pac-loader"></div> );
+        return ( <div id="pac-loader" className="pac-man"></div> );
 
     case "cube":
         return ( 
