@@ -11,7 +11,7 @@ export default function Nav({activePage, setActivePage, setWordData}) {
   ];
 
   return (
-    <div className="navBar">
+    <div className="mb-4">
         <div className="mb-2 text-2xl text-center">Lookuper</div>
         <div className="flex items-center justify-center gap-3">
             {menuItems.map((item, index) => (
