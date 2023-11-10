@@ -10,7 +10,7 @@ export default function ActivePage ({page, wordData, setActivePage, setWordData}
     switch (page) {
         case "welcome":
             return (
-                <Welcome></Welcome>
+                <Welcome setActivePage={setActivePage}></Welcome>
             );
 
         case "settings":

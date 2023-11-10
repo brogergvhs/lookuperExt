@@ -1,6 +1,7 @@
 var merger = (a, b, p) => a.filter(aa => !b.find(bb => aa[p] === bb[p])).concat(b);
 
 function inStorage (word, place) {
+    console.log("inStorage");
     if (typeof window !== 'undefined' && window.localStorage) {
         const ls = localStorage;
         
@@ -10,6 +11,7 @@ function inStorage (word, place) {
 };
 
 function saveToStorage (currentData, place, status) {
+    console.log("saveToStorage");
     if (typeof window !== 'undefined' && window.localStorage) {
         const ls = localStorage;
 
@@ -22,6 +24,7 @@ function saveToStorage (currentData, place, status) {
 };
 
 function deleteFromStorage (wordToDelete, place, template, time) {
+    console.log("deleteFromStorage");
     if (typeof window !== 'undefined' && window.localStorage) {
         const ls = localStorage;
 
@@ -61,6 +64,7 @@ function deleteFromStorage (wordToDelete, place, template, time) {
 };
 
 function savedOrganizer (searchWord) {
+    console.log("savedOrganizer");
     if (typeof window !== 'undefined' && window.localStorage) {
         const ls = localStorage;
 
@@ -77,10 +81,10 @@ function savedOrganizer (searchWord) {
 };
 
 function fetchCounter () {
+    console.log("fetch counter");
     if (typeof window !== 'undefined' && window.localStorage) {
         const ls = localStorage;
 
-        console.log("fetch counter")
         let fetchAmount = JSON.parse(ls.getItem("fetchAmount"));
         if (fetchAmount == undefined || null) {
             let fetchAmount = {time: Date.now(), amount: 2};
