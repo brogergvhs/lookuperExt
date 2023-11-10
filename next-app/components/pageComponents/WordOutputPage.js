@@ -4,12 +4,13 @@ import WordMainInfo from "./wordComponents/WordMainInfo"
 
 export default function WordOutput ({wordData, setActivePage, setWordData}) {
     let transformedDefData;
+    console.log("word:", wordData);
     if (wordData.definitions) {
         transformedDefData = Object.values(wordData.definitions);
     }
 
     return (<>
-        <WordMainInfo word={wordData.word} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
+        <WordMainInfo word={wordData.word} favourite={wordData.favourite} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
         {wordData.descr_message && (
             <div className="mt-2">
                 <span className="acc-color">Sorry,</span>

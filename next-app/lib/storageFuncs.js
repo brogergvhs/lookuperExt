@@ -32,7 +32,6 @@ function deleteFromStorage (wordToDelete, place, template, time) {
         let existingData = JSON.parse(ls.getItem(place));
         if (time) { 
             for (var i = 0; i < existingData.length; i++) {
-                console.log("qwdwerf")
                 if (existingData[i].timestamp == time) {
                     existingData.splice(i, 1);
                     i = existingData.length;
@@ -55,10 +54,10 @@ function deleteFromStorage (wordToDelete, place, template, time) {
         
         if (existingData.length == 0) { 
             ls.removeItem(place);
-            templateBuilder(template); 
+            // templateBuilder(template); 
         } else { 
             ls.setItem(place, JSON.stringify(existingData)); 
-            templateBuilder(template, existingData.reverse());
+            // templateBuilder(template, existingData.reverse());
         }
     }
 };
@@ -100,4 +99,17 @@ function fetchCounter () {
     }
 };
 
-export { inStorage, saveToStorage, deleteFromStorage, savedOrganizer, fetchCounter }
+function getFromHistory (word) {
+    console.log("getFromHistory");
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const ls = localStorage;
+
+        let historyItems;
+        if (JSON.parse(ls.getItem("history"))) { historyItems = JSON.parse(ls.getItem("history")); } else { historyItems = []; };
+        if (historyItems) {
+            return historyItems.find((item) => item.word == word);
+        }
+    }
+};
+
+export { inStorage, saveToStorage, deleteFromStorage, savedOrganizer, fetchCounter, getFromHistory }

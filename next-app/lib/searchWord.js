@@ -18,6 +18,9 @@ async function getData(searchWord, setActivePage, setWordData) {
 
     if (allSavedData.find(word => word.word == searchWord)) {
         let wordData = allSavedData.find(word => word.word == searchWord);
+        if (inStorage(searchWord, "favourites")) {
+            wordData.favourite = true;
+        }
         setActivePage("wordOutput");
         setWordData(wordData);
         saveToStorage(wordData, "history");

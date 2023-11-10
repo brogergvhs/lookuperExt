@@ -1,5 +1,8 @@
-export default function WordMainInfo ({ word, frequency, pronounciation }) {
+import { saveToFavourites } from "@/lib/handlers";
+
+export default function WordMainInfo ({ word, favourite, frequency, pronounciation }) {
     return (<>
+    {word && (
         <div className="flex justify-between items-center">
             <div className="mb-2">
                 <div className="flex flex-col">
@@ -20,9 +23,10 @@ export default function WordMainInfo ({ word, frequency, pronounciation }) {
                     )}
                 </div>
             </div>
-            <button onClick={() => addWordToFavs(word)} className="flex items-center justify-center w-8 h-8 m-4 border border-solid rounded-md">
+            <button onClick={(ev) => saveToFavourites(ev, word)} className={`${favourite ? 'active' : ''} btn-outline-info  flex items-center justify-center w-8 h-8 m-4 border border-solid rounded-md`}>
                 <i className="fa-sharp fa-solid fa-bookmark"></i>
             </button>
         </div>
+    )}
     </>)
 }

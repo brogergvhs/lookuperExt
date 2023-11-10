@@ -1,8 +1,6 @@
-import { useState } from "react";
 import CustomInput from "./pageComponents/wordComponents/CustomInput";
 
 export default function Nav({activePage, setActivePage, setWordData}) {
-
   const menuItems = [
     {trigger: "favourites", icon: "", color: ""},
     {trigger: "history", icon: "", color: ""},

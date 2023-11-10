@@ -1,28 +1,33 @@
-export default function WordLine ({ word, pronounciation, mainDef, timestamp }) {
+import { deleteFromHistory, saveToFavourites } from "@/lib/handlers";
+
+export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp }) {
+    
     return (<>
-        <div data-value={word} data-place="history" className="flex justify-content-between w-100 b-b-acc acc p-2 mb-2 historyItem searchSaved">
+        <div onClick={clickAction} className="flex justify-content-between w-100 b-b-acc acc p-2 mb-2 historyItem searchSaved">
             <div className="pe-2">
                 <div className="align-items-center flex">
                     <span className="acc-color me-3">{word}</span>
                     {pronounciation ? (
-                        <div className="fs-11 sec-color">{pronounciation}</div>
+                        <div className="text-xs leading-6 sec-color">{pronounciation}</div>
                     ) : (
-                        <div className="fs-11 sec-color">unknown :(</div>
+                        <div className="text-xs leading-6 sec-color">unknown :(</div>
                     )}
                 </div>
                 {mainDef ? (
-                    <div className="sec-color" style="min-height: 24px">{mainDef}</div>
+                    <div className="sec-color">{mainDef}</div>
                 ) : (
-                    <div className="sec-color fs-11 flex align-items-center" style="min-height: 24px">unknown :(</div>
+                    <div className="sec-color text-xs leading-6 flex align-items-center">unknown :(</div>
                 )}
             </div>
-            <div className="flex mt-2">
-                <button className="btn btn-outline-warning btn-sm saveBtn {status}" value={word}>
+            <div className="flex mt-2 gap-3 ml-auto">
+                <button onClick={(ev) => saveToFavourites(ev, word)} className="h-8 w-8 border border-solid rounded-md" value={word}>
                     <i className="fa-sharp fa-solid fa-bookmark"></i>
                 </button>
-                <button className="btn btn-outline-secondary btn-sm ms-2 deleteFromHistory" value={timestamp}>
-                    <i className="fa-solid fa-trash"></i>
-                </button>
+                {type === "history" && (
+                    <button onClick={(ev) => deleteFromHistory(ev, timestamp)} className="h-8 w-8 border border-solid rounded-md" value={timestamp}>
+                        <i className="fa-solid fa-trash"></i>
+                    </button>
+                )}
             </div>
         </div>
     </>)
