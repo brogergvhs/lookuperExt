@@ -2,15 +2,14 @@
 
 ### LOADERS
 - Move and organize css files. Ideally transform to tailwind
-- Make reusable components for each loader
-- Or a single component for all :D
+- Make reusable components for each loader **DONE**
 
-### MAIN TEMPLATES
-- Remake handlebaars 'script' templates into reusable components
+### MAIN TEMPLATES (IN PROGRESS)
+- Remake handlebaars 'script' templates into reusable components 
 - Potentially break some templates into multipole components
 - Organise styling
 
-### JS OPTIMIZATION
+### JS OPTIMIZATION (IN PROGRESS)
 - Remake JQuery into dynamic saturation **(BIG!)**
 - Isolate sesnsible data in environment **(API/credentials)**
 - Optimize listeners
