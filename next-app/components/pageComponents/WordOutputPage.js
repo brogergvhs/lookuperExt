@@ -4,15 +4,16 @@ import WordMainInfo from "./wordComponents/WordMainInfo"
 
 export default function WordOutput ({wordData, setActivePage, setWordData}) {
     let transformedDefData;
+    console.log("word:", wordData);
     if (wordData.definitions) {
         transformedDefData = Object.values(wordData.definitions);
     }
 
     return (<>
-        <WordMainInfo word={wordData.word} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
+        <WordMainInfo word={wordData.word} favourite={wordData.favourite} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
         {wordData.descr_message && (
-            <div class="mt-2">
-                <span class="acc-color">Sorry,</span>
+            <div className="mt-2">
+                <span className="acc-color">Sorry,</span>
                 {wordData.descr_message}
             </div>
         )}
@@ -22,7 +23,7 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                 {defSection && defSection.map((d, index) => (<>
                     <div key={`def-${index}`} className="flex">
                         <NumberCircle number={index+1}></NumberCircle>
-                        <div class="d-flex flex-column ps-2 mb-1 mt-1 b-l-acc">
+                        <div className="d-flex flex-column ps-2 mb-1 mt-1 b-l-acc">
                             <div>{d.definition}</div>
 
                             {d.examples && d.examples.map((example, index) => (
@@ -30,8 +31,8 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                             ))}
 
                             {d.synonyms && (<>
-                                <span class="fs-11 sec-color">Synonyms: </span>
-                                <div class="flex flex-wrap w-full mt-1">
+                                <span className="fs-11 sec-color">Synonyms: </span>
+                                <div className="flex flex-wrap w-full mt-1">
                                     {d.synonyms && d.synonyms.map((synonyme) => (
                                         <WordCrumb key={synonyme} word={synonyme} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
                                     ))}
@@ -39,8 +40,8 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                             </>)}
 
                             {d.hasTypes && (<>
-                                <span class="fs-11 sec-color">Hyponyms: </span>
-                                <div class="flex flex-wrap w-full mt-1">
+                                <span className="fs-11 sec-color">Hyponyms: </span>
+                                <div className="flex flex-wrap w-full mt-1">
                                     {d.hasTypes && d.hasTypes.map((type) => (
                                         <WordCrumb key={type} word={type} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
                                     ))}
@@ -48,8 +49,8 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                             </>)}
 
                             {d.typeOf && (<>
-                                <span class="fs-11 sec-color">Hypernyms: </span>
-                                <div class="flex flex-wrap w-full mt-1">
+                                <span className="fs-11 sec-color">Hypernyms: </span>
+                                <div className="flex flex-wrap w-full mt-1">
                                     {d.typeOf && d.typeOf.map((typeOf) => (
                                         <WordCrumb key={typeOf} word={typeOf} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
                                     ))}

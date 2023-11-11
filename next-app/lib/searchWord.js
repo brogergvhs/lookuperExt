@@ -1,19 +1,36 @@
-import {inStorage, saveToStorage, fetchCounter} from "./storageFuncs";
+import { fetchDataFunc } from "./headersConstruct";
+import {inStorage, saveToStorage, fetchCounter, savedOrganizer} from "./storageFuncs";
 
 export default async function searchWord (word, setActivePage, setWordData) {
     const englRegex = /^[a-z]+$/i;
-
+    console.log("word to search:", word);
     if (englRegex.test(word)) {
         setActivePage("loading");
-        dataInterpreter(word, setActivePage, setWordData);
-        
-    };
-
-    setActivePage('wordOutput');
-    return word;
+        getData(word, setActivePage, setWordData);
+    } else {
+        console.log("Regex failed or no word.");
+    }
 };
 
+async function getData(searchWord, setActivePage, setWordData) {
+    console.log("getData");
+    let allSavedData = savedOrganizer(searchWord); 
+
+    if (allSavedData.find(word => word.word == searchWord)) {
+        let wordData = allSavedData.find(word => word.word == searchWord);
+        if (inStorage(searchWord, "favourites")) {
+            wordData.favourite = true;
+        }
+        setActivePage("wordOutput");
+        setWordData(wordData);
+        saveToStorage(wordData, "history");
+    } else { 
+        dataInterpreter(searchWord, setActivePage, setWordData);
+    }
+}
+
 async function dataInterpreter (searchWord, setActivePage, setWordData) {
+    console.log("dataInterpreter");
     let fetch = await fetchEnglishWord(searchWord).then();
     let sortedDef = {};
     if (fetch[0].success == false) {
@@ -52,17 +69,12 @@ async function dataInterpreter (searchWord, setActivePage, setWordData) {
 };
 
 async function fetchEnglishWord (searchWord) {
-    const urlWordApi = 'https://wordsapiv1.p.rapidapi.com/words/';
-    const optionsWordApi = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'ee641ba247msh00f2b77313afa28p1468e4jsnce0cfd55e608',
-            'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
-        }
-    };
+    console.log("fetchEnglishWord");
+
     fetchCounter();
-    const wordResponse = await fetch(urlWordApi + searchWord, optionsWordApi);
-    const freqResponse = await fetch(urlWordApi + searchWord + "/frequency", optionsWordApi);
+    let data = fetchDataFunc();
+    const wordResponse = await fetch(data.urlWordApi + searchWord, data.optionsWordApi);
+    const freqResponse = await fetch(data.urlWordApi + searchWord + "/frequency", data.optionsWordApi);
     const wordResult = await wordResponse.json();
     const freqResult = await freqResponse.json();
 
@@ -70,6 +82,7 @@ async function fetchEnglishWord (searchWord) {
 };
 
 function dataSorter (data, storage) {
+    console.log("dataSorter");
     data.forEach(function (item) {
         if (storage.hasOwnProperty(item.partOfSpeech)) {
             storage[item.partOfSpeech].push(item)

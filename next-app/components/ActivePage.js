@@ -1,3 +1,4 @@
+import { inStorage } from "@/lib/storageFuncs";
 import CustomLoader from "./loaders/CustomLoader";
 import WordNotFound from "./pageComponents/ErrorPage";
 import HistoryFavourites from "./pageComponents/HistoryFavouritesPage";
@@ -10,7 +11,7 @@ export default function ActivePage ({page, wordData, setActivePage, setWordData}
     switch (page) {
         case "welcome":
             return (
-                <Welcome></Welcome>
+                <Welcome setActivePage={setActivePage}></Welcome>
             );
 
         case "settings":
@@ -19,13 +20,28 @@ export default function ActivePage ({page, wordData, setActivePage, setWordData}
             );
 
         case "history":
+            let historyData;
+            if (typeof window !== 'undefined' && window.localStorage) {
+                historyData = JSON.parse(localStorage.getItem("history"));
+                if (historyData) {
+                    historyData.forEach((word) => {
+                        if (word.status) { word.status = ""; };
+                        if (inStorage(word.word, "favourites")) { word.status = "active"; };
+                    });
+                };
+            };
+
             return (
-                <HistoryFavourites type="history"></HistoryFavourites>
+                <HistoryFavourites data={historyData} setActivePage={setActivePage} setWordData={setWordData} type="history"></HistoryFavourites>
             );
 
         case "favourites":
+            let favouritesData;
+            if (typeof window !== 'undefined' && window.localStorage) {
+                favouritesData = JSON.parse(localStorage.getItem("favourites"));
+            };
             return (
-                <HistoryFavourites type="favourites"></HistoryFavourites>
+                <HistoryFavourites data={favouritesData} setActivePage={setActivePage} setWordData={setWordData} type="favourites"></HistoryFavourites>
             );
 
         case "wordOutput":
