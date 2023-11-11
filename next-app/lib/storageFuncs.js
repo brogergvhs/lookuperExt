@@ -17,7 +17,6 @@ function saveToStorage (currentData, place, status) {
 
         let existingData = JSON.parse(ls.getItem(place));
         if (existingData == null) { existingData = [] };
-        currentData.status = status;
         existingData.push(currentData);
         ls.setItem(place, JSON.stringify(existingData));
     }

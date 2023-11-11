@@ -5,10 +5,14 @@ function saveToFavourites (ev, word) {
     let isInStorage = inStorage(word, "favourites");
     if (isInStorage) {
         deleteFromStorage(word, "favourites", "favs");
+        let wordToChange = getFromHistory(word);
+        wordToChange.favourite = false;
+        saveToStorage(wordToChange, "history", "");
     } else {
         if (inStorage(word, "history")) {
             let wordToSave = getFromHistory(word);
-            saveToStorage(wordToSave, "favourites", "active");
+            wordToSave.favourite = true;
+            saveToStorage(wordToSave, "favourites", "");
         };
     };
 }
@@ -18,9 +22,10 @@ function deleteFromHistory (ev, removeTime) {
     deleteFromStorage("", "history", '', removeTime);
 }
 
-var clearHistory = function () {
+function clearHistory (data) {
     if (typeof window !== 'undefined' && window.localStorage) {
         localStorage.removeItem("history");
+        return data = [];
     }
 };
 

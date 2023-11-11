@@ -3,10 +3,10 @@ import { deleteFromHistory, saveToFavourites } from "@/lib/handlers";
 export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp }) {
     
     return (<>
-        <div onClick={clickAction} className="flex justify-content-between w-100 b-b-acc acc p-2 mb-2 historyItem searchSaved">
+        <div onClick={clickAction} className={`flex justify-between w-full b-b-acc acc p-2 historyItem mb-2 ${type === 'favourites' ? 'fav' : ''}`}>
             <div className="pe-2">
-                <div className="align-items-center flex">
-                    <span className="acc-color me-3">{word}</span>
+                <div className="items-center flex">
+                    <span className={`${type === 'history' ? 'acc-color' : 'fav-color'} me-3 $`}>{word}</span>
                     {pronounciation ? (
                         <div className="text-xs leading-6 sec-color">{pronounciation}</div>
                     ) : (
