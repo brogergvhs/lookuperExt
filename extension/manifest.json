@@ -1,7 +1,10 @@
 {
-  "name": "Next Chrome",
-  "description": "Next.js Chrome Extension starter",
+  "name": "Lookuper",
+  "description": "A small extension that will help you find and understand new words! Only english for now.",
   "version": "0.0.1",
+  "icons": {
+    "128": "icons8-search-128.png"
+    },
   "manifest_version": 3,
   "action": {
     "default_title": "Next.js app",
