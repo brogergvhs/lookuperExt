@@ -23,7 +23,10 @@ export default function WordMainInfo ({ word, favourite, frequency, pronounciati
                     )}
                 </div>
             </div>
-            <button onClick={(ev) => saveToFavourites(ev, word)} className={`${favourite ? 'active' : ''} btn-outline-info  flex items-center justify-center w-8 h-8 m-4 border border-solid rounded-md`}>
+            <button data-id={`favBtn-${word}`} 
+                onClick={(ev) => saveToFavourites(ev, word)} 
+                className={`${favourite ? 'active' : ''} btn-outline-info  flex items-center justify-center w-8 h-8 m-4 border border-solid rounded-md`}
+            >
                 <i className="fa-sharp fa-solid fa-bookmark"></i>
             </button>
         </div>

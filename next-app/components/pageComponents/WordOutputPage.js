@@ -4,9 +4,9 @@ import WordMainInfo from "./wordComponents/WordMainInfo"
 
 export default function WordOutput ({wordData, setActivePage, setWordData}) {
     let transformedDefData;
-    console.log("word:", wordData);
     if (wordData.definitions) {
         transformedDefData = Object.values(wordData.definitions);
+        console.log("word:", transformedDefData);
     }
 
     return (<>
@@ -18,7 +18,7 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
             </div>
         )}
         {transformedDefData && transformedDefData.map((defSection, index) => (<>
-            <div key={`defTypeName-${index}`} className="">testert</div>
+            <div key={`defTypeName-${index}`} className="capitalize">{defSection[0].partOfSpeech}</div>
             <div key={`defType-${index}`} className="flex flex-col h-full">
                 {defSection && defSection.map((d, index) => (<>
                     <div key={`def-${index}`} className="flex">

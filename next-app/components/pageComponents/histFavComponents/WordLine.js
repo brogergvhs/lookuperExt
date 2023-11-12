@@ -1,9 +1,9 @@
 import { deleteFromHistory, saveToFavourites } from "@/lib/handlers";
 
-export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp }) {
+export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp, status }) {
     
     return (<>
-        <div onClick={clickAction} className={`flex justify-between w-full b-b-acc acc p-2 historyItem mb-2 ${type === 'favourites' ? 'fav' : ''}`}>
+        <div id={timestamp} onClick={clickAction} className={`flex justify-between w-full b-b-acc acc p-2 historyItem mb-2 ${type === 'favourites' ? 'fav' : ''}`}>
             <div className="pe-2">
                 <div className="items-center flex">
                     <span className={`${type === 'history' ? 'acc-color' : 'fav-color'} me-3 $`}>{word}</span>
@@ -20,11 +20,11 @@ export default function WordLine ({ type, clickAction, word, pronounciation, mai
                 )}
             </div>
             <div className="flex mt-2 gap-3 ml-auto">
-                <button onClick={(ev) => saveToFavourites(ev, word)} className="h-8 w-8 border border-solid rounded-md" value={word}>
+                <button data-id={`favBtn-${word}`} onClick={(ev) => saveToFavourites(ev, word)} className={`h-8 w-8 border border-solid btn-outline-${type == 'history' ? 'info' : 'warning'} rounded-md ${status == 'active' ? 'active' : ''}`}>
                     <i className="fa-sharp fa-solid fa-bookmark"></i>
                 </button>
                 {type === "history" && (
-                    <button onClick={(ev) => deleteFromHistory(ev, timestamp)} className="h-8 w-8 border border-solid rounded-md" value={timestamp}>
+                    <button onClick={(ev) => deleteFromHistory(ev, timestamp)} className="h-8 w-8 border border-solid rounded-md">
                         <i className="fa-solid fa-trash"></i>
                     </button>
                 )}
