@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import NumberCircle from "../generalComponents/NumberCircle";
+import { GeneralDataContext } from "../WordDataProvider";
 
-export default function Welcome ({setActivePage}) {
+export default function Welcome () {
+    const {setActivePage} = useContext(GeneralDataContext);
     const [apiKey, setApiKey] = useState('');
     const [host, setHost] = useState('wordsapiv1.p.rapidapi.com');
 

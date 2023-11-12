@@ -1,7 +1,9 @@
+import { GeneralDataContext } from "@/components/WordDataProvider";
 import searchWord from "@/lib/searchWord";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
-export default function CustomInput ({setActivePage, setWordData}) { 
+export default function CustomInput () { 
+    const {setActivePage, setWordData} = useContext(GeneralDataContext);
     const [wordToSearch, setWordToSearch] = useState('');
     function searchClick () {
         searchWord(wordToSearch, setActivePage, setWordData);

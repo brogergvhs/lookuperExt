@@ -1,17 +1,19 @@
 import { inStorage } from "@/lib/storageFuncs";
+import { useContext } from "react";
 import CustomLoader from "./loaders/CustomLoader";
 import WordNotFound from "./pageComponents/ErrorPage";
 import HistoryFavourites from "./pageComponents/HistoryFavouritesPage";
 import Settings from "./pageComponents/SettingsPage";
 import Welcome from "./pageComponents/WelcomePage";
 import WordOutput from "./pageComponents/WordOutputPage";
+import { GeneralDataContext } from "./WordDataProvider";
 
-export default function ActivePage ({page, wordData, setActivePage, setWordData}) {
-
-    switch (page) {
+export default function ActivePage ({page}) {
+    const {activePage} = useContext(GeneralDataContext);
+    switch (activePage) {
         case "welcome":
             return (
-                <Welcome setActivePage={setActivePage}></Welcome>
+                <Welcome></Welcome>
             );
 
         case "settings":
@@ -32,7 +34,7 @@ export default function ActivePage ({page, wordData, setActivePage, setWordData}
             };
 
             return (
-                <HistoryFavourites data={historyData} setActivePage={setActivePage} setWordData={setWordData} type="history"></HistoryFavourites>
+                <HistoryFavourites data={historyData} type="history"></HistoryFavourites>
             );
 
         case "favourites":
@@ -41,12 +43,12 @@ export default function ActivePage ({page, wordData, setActivePage, setWordData}
                 favouritesData = JSON.parse(localStorage.getItem("favourites"));
             };
             return (
-                <HistoryFavourites data={favouritesData} setActivePage={setActivePage} setWordData={setWordData} type="favourites"></HistoryFavourites>
+                <HistoryFavourites data={favouritesData} type="favourites"></HistoryFavourites>
             );
 
         case "wordOutput":
             return (
-                <WordOutput wordData={wordData} setActivePage={setActivePage} setWordData={setWordData}></WordOutput>
+                <WordOutput></WordOutput>
             );
 
         case "error":
