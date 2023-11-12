@@ -1,7 +1,10 @@
+import { GeneralDataContext } from "@/components/WordDataProvider";
 import { saveToFavourites } from "@/lib/handlers";
+import { useContext } from "react";
 import { HiBookmark } from 'react-icons/hi';
 
 export default function WordMainInfo ({ word, favourite, frequency, pronounciation }) {
+
     return (<>
     {word ? (
         <div className="flex justify-between items-center">

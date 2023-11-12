@@ -1,9 +1,11 @@
 import { clearHistory } from "@/lib/handlers";
 import searchWord from "@/lib/searchWord";
+import { useContext } from "react";
+import { GeneralDataContext } from "../WordDataProvider";
 import WordLine from "./histFavComponents/WordLine";
 
-export default function HistoryFavourites ({type, data, setActivePage, setWordData}) {
-    console.log("history data:", data)
+export default function HistoryFavourites ({ type, data }) {
+    const {setWordData, setActivePage} = useContext(GeneralDataContext);
 
     return (<>
         {data ? (<>

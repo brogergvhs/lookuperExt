@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import NumberCircle from "../generalComponents/NumberCircle"
+import { GeneralDataContext } from "../WordDataProvider";
 import WordCrumb from "./wordComponents/WordCrumb"
 import WordMainInfo from "./wordComponents/WordMainInfo"
 
-export default function WordOutput ({wordData, setActivePage, setWordData}) {
+export default function WordOutput () {
+    let {wordData} = useContext(GeneralDataContext);
     let transformedDefData;
     if (wordData.definitions) {
         transformedDefData = Object.values(wordData.definitions);
@@ -34,7 +37,7 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                                 <span className="fs-11 sec-color">Synonyms: </span>
                                 <div className="flex flex-wrap w-full mt-1">
                                     {d.synonyms && d.synonyms.map((synonyme) => (
-                                        <WordCrumb key={synonyme} word={synonyme} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
+                                        <WordCrumb key={synonyme} word={synonyme}></WordCrumb>
                                     ))}
                                 </div>
                             </>)}
@@ -43,7 +46,7 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                                 <span className="fs-11 sec-color">Hyponyms: </span>
                                 <div className="flex flex-wrap w-full mt-1">
                                     {d.hasTypes && d.hasTypes.map((type) => (
-                                        <WordCrumb key={type} word={type} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
+                                        <WordCrumb key={type} word={type}></WordCrumb>
                                     ))}
                                 </div>
                             </>)}
@@ -52,7 +55,7 @@ export default function WordOutput ({wordData, setActivePage, setWordData}) {
                                 <span className="fs-11 sec-color">Hypernyms: </span>
                                 <div className="flex flex-wrap w-full mt-1">
                                     {d.typeOf && d.typeOf.map((typeOf) => (
-                                        <WordCrumb key={typeOf} word={typeOf} setActivePage={setActivePage} setWordData={setWordData}></WordCrumb>
+                                        <WordCrumb key={typeOf} word={typeOf}></WordCrumb>
                                     ))}
                                 </div>
                             </>)}

@@ -1,11 +1,11 @@
 import Layout from '@/components/Layout';
 import ActivePage from '@/components/ActivePage';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Nav from '@/components/Nav';
+import { GeneralDataContext } from '@/components/WordDataProvider';
 
 export default function IndexPage () {
-  const [activePage, setActivePage] = useState('wordOutput');
-  const [wordData, setWordData] = useState({});
+  const {activePage} = useContext(GeneralDataContext);
 
   useEffect(() => {
     let apiKey, host;
@@ -20,9 +20,9 @@ export default function IndexPage () {
   return (
     <Layout>
       {activePage != "welcome" && (
-        <Nav word={wordData?.word} activePage={activePage} setActivePage={setActivePage} setWordData={setWordData}></Nav>
+        <Nav></Nav>
       )}
-      <ActivePage page={activePage} wordData={wordData} setActivePage={setActivePage} setWordData={setWordData}></ActivePage>
+      <ActivePage></ActivePage>
     </Layout>
   );
 };
