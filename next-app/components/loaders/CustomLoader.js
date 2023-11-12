@@ -7,16 +7,16 @@ export default function CustomLoader({type}) {
     case "cube":
         return ( 
             <div id="cube-loader">
-                <div class="scene">
-                    <div class="cube-wrapper">
-                        <div class="cube">
-                            <div class="cube-faces">
-                                <div class="cube-face bottom"></div>
-                                <div class="cube-face top"></div>
-                                <div class="cube-face left"></div>
-                                <div class="cube-face right"></div>
-                                <div class="cube-face back"></div>
-                                <div class="cube-face front"></div>
+                <div className="scene">
+                    <div className="cube-wrapper">
+                        <div className="cube">
+                            <div className="cube-faces">
+                                <div className="cube-face bottom"></div>
+                                <div className="cube-face top"></div>
+                                <div className="cube-face left"></div>
+                                <div className="cube-face right"></div>
+                                <div className="cube-face back"></div>
+                                <div className="cube-face front"></div>
                             </div>
                         </div>
                     </div>
@@ -27,24 +27,24 @@ export default function CustomLoader({type}) {
     case "lines":
         return (
             <div id="lines-loader">
-                <div class="content">
-                    <div class="bars">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
+                <div className="content">
+                    <div className="bars">
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
                     </div>
-                    <div class="bars">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
+                    <div className="bars">
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
+                        <div className="bar"></div>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@ export default function CustomLoader({type}) {
 
     case "dots":
         return (
-            <div id="dots-loader" class="justify-content-center mt-3">
-                <div class="loading">
+            <div id="dots-loader" className="justify-content-center mt-3">
+                <div className="loading">
                     <div></div>
                     <div></div>
                     <div></div>
@@ -77,8 +77,8 @@ export default function CustomLoader({type}) {
     case "spinner":
         return (
             <div id="dot-spin-loader">
-                <div class="circle me-auto ms-auto">
-                    <div class="inner"></div>
+                <div className="circle me-auto ms-auto">
+                    <div className="inner"></div>
                 </div>
             </div>
         );
