@@ -1,5 +1,5 @@
 import { inStorage } from "@/lib/storageFuncs";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import CustomLoader from "./loaders/CustomLoader";
 import WordNotFound from "./pageComponents/ErrorPage";
 import HistoryFavourites from "./pageComponents/HistoryFavouritesPage";
@@ -8,8 +8,23 @@ import Welcome from "./pageComponents/WelcomePage";
 import WordOutput from "./pageComponents/WordOutputPage";
 import { GeneralDataContext } from "./WordDataProvider";
 
+import { Messenger } from "@/lib/messenger";
+
 export default function ActivePage ({page}) {
     const {activePage} = useContext(GeneralDataContext);
+
+    if (typeof window !== 'undefined') {
+    chrome.runtime.sendMessage({greeting: "hello"});
+    chrome.runtime.onMessage.addListener((message, sender) => {
+        console.log(message.greeting);
+    });
+    }
+
+    
+    //const messenger = new Messenger("popup", "background", false);
+    //messenger.send({ "get-historydata": null });
+    //messenger.listen();
+
     switch (activePage) {
         case "welcome":
             return (
