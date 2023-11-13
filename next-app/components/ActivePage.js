@@ -13,17 +13,27 @@ import { Messenger } from "@/lib/messenger";
 export default function ActivePage ({page}) {
     const {activePage} = useContext(GeneralDataContext);
 
-    if (typeof window !== 'undefined') {
-    chrome.runtime.sendMessage({greeting: "hello"});
-    chrome.runtime.onMessage.addListener((message, sender) => {
-        console.log(message.greeting);
-    });
-    }
+    // if (typeof window !== 'undefined') {
+    // chrome.runtime.sendMessage({greeting: "hello"});
+    // chrome.runtime.onMessage.addListener((message, sender) => {
+    //     console.log(message.greeting);
+    // });
+    // }
 
-    
-    //const messenger = new Messenger("popup", "background", false);
-    //messenger.send({ "get-historydata": null });
-    //messenger.listen();
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const messenger = new Messenger("popup", "background", true);
+            messenger.registerEvent(["handshake"]);
+            console.log("sending handshake from popup...")
+            messenger.send({ "handshake": true });
+            messenger.listen();
+            messenger.addEventListener("handshake", (event) => {
+                console.log("popup received handshake");
+            });
+            } else {
+                console.log("window is undefined");
+            }
+    }, []);
 
     switch (activePage) {
         case "welcome":
