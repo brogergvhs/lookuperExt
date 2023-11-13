@@ -5,7 +5,7 @@ import Nav from '@/components/Nav';
 import { GeneralDataContext } from '@/components/WordDataProvider';
 
 export default function IndexPage () {
-  const {activePage} = useContext(GeneralDataContext);
+  const {activePage, setActivePage} = useContext(GeneralDataContext);
 
   useEffect(() => {
     let apiKey, host;
