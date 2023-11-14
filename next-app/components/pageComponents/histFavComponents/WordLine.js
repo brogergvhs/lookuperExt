@@ -1,4 +1,4 @@
-import { deleteFromHistory, saveToFavourites } from "@/lib/handlers";
+import { deleteFromHistory, toggleFavourites } from "@/lib/handlers";
 import { HiBookmark, HiTrash } from 'react-icons/hi';
 
 export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp, status }) {
@@ -21,7 +21,7 @@ export default function WordLine ({ type, clickAction, word, pronounciation, mai
                 )}
             </div>
             <div className="flex mt-2 gap-3 ml-auto">
-                <button data-id={`favBtn-${word}`} onClick={(ev) => saveToFavourites(ev, word)} className={`flex items-center justify-center w-8 h-8 border border-solid rounded-md btn-outline-${type == 'history' ? 'info' : 'warning'} ${status == 'active' ? 'active' : ''}`}>
+                <button data-id={`favBtn-${word}`} onClick={(ev) => toggleFavourites(ev, word)} className={`flex items-center justify-center w-8 h-8 border border-solid rounded-md btn-outline-${type == 'history' ? 'info' : 'warning'} ${status == 'active' ? 'active' : ''}`}>
                     <HiBookmark />
                 </button>
                 {type === "history" && (

@@ -25,6 +25,28 @@ async function saveToStorage (currentData, place, status) {
     }
 };
 
+async function updateAllStorage (currentData, place) {
+    console.log("updateStorage");
+    if (typeof window !== 'undefined') {
+        let existingData = await chrome.storage.local.get(place);
+        if (Object.keys(existingData).length == 0) { 
+            throw new Error("updateStorage: no data in storage");
+        } else {
+            existingData = existingData[place];
+        };
+        existingData.forEach((wordData) => {
+            console.log("Current Data: ", currentData);
+            if (wordData.word == currentData.word) {
+                wordData.status = currentData.status;
+                wordData.favourite = currentData.favourite;
+            }
+        });
+        console.log("Updated Data: ", existingData);
+        chrome.storage.local.set({[place]: existingData});
+    }
+
+}
+
 async function deleteFromStorage (wordToDelete, place, template, time) {
     console.log("deleteFromStorage");
     if (typeof window !== 'undefined') {
@@ -110,4 +132,4 @@ async function getFromHistory (word) {
     }
 };
 
-export { inStorage, saveToStorage, deleteFromStorage, savedOrganizer, fetchCounter, getFromHistory }
+export { inStorage, saveToStorage, updateAllStorage, deleteFromStorage, savedOrganizer, fetchCounter, getFromHistory }
