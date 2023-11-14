@@ -1,22 +1,22 @@
 const { inStorage, deleteFromStorage, saveToStorage, getFromHistory } = require("./storageFuncs");
 
-function saveToFavourites (ev, word) {
+async function saveToFavourites (ev, word) {
     ev.stopPropagation();
-    let isInStorage = inStorage(word, "favourites");
+    let isInStorage = await inStorage(word, "favourites");
     if (isInStorage) {
-        deleteFromStorage(word, "favourites", "favs");
-        let wordToChange = getFromHistory(word);
+        await deleteFromStorage(word, "favourites", "favs");
+        let wordToChange = await getFromHistory(word);
         wordToChange.favourite = false;
-        saveToStorage(wordToChange, "history", "");
+        await saveToStorage(wordToChange, "history", "");
         let favButtons = document.querySelectorAll(`[data-id=favBtn-${word}]`);
         favButtons.forEach(btn => (
             btn.classList.remove("active")
         ));
     } else {
-        if (inStorage(word, "history")) {
-            let wordToSave = getFromHistory(word);
+        if (await inStorage(word, "history")) {
+            let wordToSave = await getFromHistory(word);
             wordToSave.status = 'active';
-            saveToStorage(wordToSave, "favourites", "");
+            await saveToStorage(wordToSave, "favourites", "");
             let favButtons = document.querySelectorAll(`[data-id=favBtn-${word}]`);
             favButtons.forEach(btn => (
                 btn.classList.add("active")
@@ -25,15 +25,15 @@ function saveToFavourites (ev, word) {
     };
 };
 
-function deleteFromHistory (ev, removeTime) {
+async function deleteFromHistory (ev, removeTime) {
     ev.stopPropagation();
-    deleteFromStorage("", "history", '', removeTime);
+    await deleteFromStorage("", "history", '', removeTime);
     document.getElementById(removeTime).remove();
 };
 
 function clearHistory (data) {
-    if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.removeItem("history");
+    if (typeof window !== 'undefined') {
+        chrome.storage.local.remove("history");
         return data = [];
     }
 };

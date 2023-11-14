@@ -2,21 +2,24 @@ import { useContext, useState } from "react";
 import NumberCircle from "../generalComponents/NumberCircle";
 import { GeneralDataContext } from "../WordDataProvider";
 
+import { Messenger } from "../../lib/messenger";
+
 export default function Welcome () {
     const {setActivePage} = useContext(GeneralDataContext);
     const [apiKey, setApiKey] = useState('');
     const [host, setHost] = useState('wordsapiv1.p.rapidapi.com');
 
     function finishSetup() {
-        if (apiKey && host && typeof window !== 'undefined' && window.localStorage) {
-            const ls = localStorage;
-
+        if (apiKey && host) {
             let keyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
             let keyPairs = [];
             keyPairs.push(keyPair);
-            ls.setItem('keyPairs', JSON.stringify(keyPairs));
-            ls.setItem('apiKey', apiKey);
-            ls.setItem('hostKey', host);
+
+            const messenger = new Messenger("welcome", "background");      
+            messenger.send(
+                {"store-data": {'keyPairs': keyPairs}}, 
+                {"store-data": {'apiKey': apiKey}}, 
+                {"store-data": {'hostKey': host}});
             setActivePage('wordOutput');
         };
     };

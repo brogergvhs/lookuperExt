@@ -1,20 +1,27 @@
 import { Messenger } from '../lib/messenger.js';
-import { EventEmitter } from '../lib/eventEmitter.js';
-
 
 function init() {
-    console.log(typeof window);
-    console.log('background.js: init()');
-
-    const messenger = new Messenger("background", "popup", false);
-    // const eventEmitter = new EventEmitter();
-
+    const messenger = new Messenger("background", "active-page", false);
     messenger.listen();
-    messenger.registerEvent(["handshake"]);
-    messenger.addEventListener("handshake", (event) => {
+    messenger.registerEvent(["handshake", "request-stored-data","store-data","remove-stored-data"]);
+    messenger.addEventListener("handshake", (message) => {
         console.log("background received handshake");
         messenger.setIsAllowed(true);
         messenger.send({ "handshake": true });
+    });
+    messenger.addEventListener("request-stored-data", async (message) => {
+        const requestedData = await chrome.storage.local.get(message.data);
+        const returnData = Object.keys(requestedData).length == 0 ? null : requestedData;
+        console.log(message);
+        console.log(`sending ${message.data} to ${message.origin}`);
+        console.log("requestedData:", returnData);
+        messenger.send({recipient: message.origin, "get-stored-data": {[message.data]: returnData}})
+    });
+    messenger.addEventListener("store-data", (entry) => {
+        chrome.storage.local.set(entry.data);
+    });
+    messenger.addEventListener("remove-stored-data", (entry) => {
+        chrome.storage.local.remove(entry.data);
     });
 
 

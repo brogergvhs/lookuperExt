@@ -14,16 +14,16 @@ export default async function searchWord (word, setActivePage, setWordData) {
 
 async function getData(searchWord, setActivePage, setWordData) {
     console.log("getData");
-    let allSavedData = savedOrganizer(searchWord); 
+    let allSavedData = await savedOrganizer(searchWord); 
 
     if (allSavedData.find(word => word.word == searchWord)) {
         let wordData = allSavedData.find(word => word.word == searchWord);
-        if (inStorage(searchWord, "favourites")) {
+        if (await inStorage(searchWord, "favourites")) {
             wordData.favourite = true;
         }
         setActivePage("wordOutput");
         setWordData(wordData);
-        saveToStorage(wordData, "history");
+        await saveToStorage(wordData, "history");
     } else { 
         dataInterpreter(searchWord, setActivePage, setWordData);
     }
@@ -40,7 +40,7 @@ async function dataInterpreter (searchWord, setActivePage, setWordData) {
         finalData.word = fetch[0].word;
         finalData.timestamp = Date.now();
 
-        if (inStorage(fetch[0].word, "favourites")) { finalData.isFavourite = true; };
+        if (await inStorage(fetch[0].word, "favourites")) { finalData.isFavourite = true; };
         if (fetch[0].results) { 
             dataSorter(fetch[0].results, sortedDef);
             finalData.mainDef =  fetch[0].results[0].definition;
@@ -61,7 +61,7 @@ async function dataInterpreter (searchWord, setActivePage, setWordData) {
         };
         
         finalData.definitions = sortedDef;
-        saveToStorage(finalData, "history");
+        await saveToStorage(finalData, "history");
         setActivePage("wordOutput");
         console.log("final data:", finalData);
         setWordData(finalData);
@@ -72,7 +72,7 @@ async function fetchEnglishWord (searchWord) {
     console.log("fetchEnglishWord");
 
     fetchCounter();
-    let data = fetchDataFunc();
+    let data = await fetchDataFunc();
     const wordResponse = await fetch(data.urlWordApi + searchWord, data.optionsWordApi);
     const freqResponse = await fetch(data.urlWordApi + searchWord + "/frequency", data.optionsWordApi);
     const wordResult = await wordResponse.json();

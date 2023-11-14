@@ -21,11 +21,11 @@ export default function WordLine ({ type, clickAction, word, pronounciation, mai
                 )}
             </div>
             <div className="flex mt-2 gap-3 ml-auto">
-                <button data-id={`favBtn-${word}`} onClick={(ev) => saveToFavourites(ev, word)} className={`flex items-center justify-center w-8 h-8 border border-solid rounded-md btn-outline-${type == 'history' ? 'info' : 'warning'} ${status == 'active' ? 'active' : ''}`}>
+                <button data-id={`favBtn-${word}`} onClick={async (ev) => await saveToFavourites(ev, word)} className={`flex items-center justify-center w-8 h-8 border border-solid rounded-md btn-outline-${type == 'history' ? 'info' : 'warning'} ${status == 'active' ? 'active' : ''}`}>
                     <HiBookmark />
                 </button>
                 {type === "history" && (
-                    <button onClick={(ev) => deleteFromHistory(ev, timestamp)} className="flex items-center justify-center w-8 h-8 border border-solid rounded-md">
+                    <button onClick={async (ev) => await deleteFromHistory(ev, timestamp)} className="flex items-center justify-center w-8 h-8 border border-solid rounded-md">
                         <HiTrash />
                     </button>
                 )}

@@ -1,6 +1,7 @@
-var fetchDataFunc = function () {
-    let apiKey = localStorage.getItem('apiKey');
-    let host = localStorage.getItem('hostKey');
+var fetchDataFunc = async function () {
+    let apiKey = await chrome.storage.local.get('apiKey');
+    let host = await chrome.storage.local.get('hostKey');
+    
     console.log("api:", apiKey, "host:", host);
 
     var data = {

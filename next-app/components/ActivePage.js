@@ -13,22 +13,16 @@ import { Messenger } from "@/lib/messenger";
 export default function ActivePage ({page}) {
     const {activePage} = useContext(GeneralDataContext);
 
-    // if (typeof window !== 'undefined') {
-    // chrome.runtime.sendMessage({greeting: "hello"});
-    // chrome.runtime.onMessage.addListener((message, sender) => {
-    //     console.log(message.greeting);
-    // });
-    // }
+    const messenger = new Messenger("active-page", "background", true);
+    messenger.registerEvent(["handshake", "get-stored-data"]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const messenger = new Messenger("popup", "background", true);
-            messenger.registerEvent(["handshake"]);
-            console.log("sending handshake from popup...")
-            messenger.send({ "handshake": true });
             messenger.listen();
-            messenger.addEventListener("handshake", (event) => {
-                console.log("popup received handshake");
+            messenger.addEventListener("get-stored-data", (message) => {
+                if(!message.data) return;
+                let historyData = message.data["history"];
+                let favouritesData = message.data["favourites"];
             });
             } else {
                 console.log("window is undefined");
@@ -48,12 +42,12 @@ export default function ActivePage ({page}) {
 
         case "history":
             let historyData;
-            if (typeof window !== 'undefined' && window.localStorage) {
-                historyData = JSON.parse(localStorage.getItem("history"));
+            if (typeof window !== 'undefined') {
+                messenger.send({"request-stored-data": "history"});
                 if (historyData) {
-                    historyData.forEach((word) => {
+                    historyData.forEach(async (word) => {
                         if (word.status) { word.status = ""; };
-                        if (inStorage(word.word, "favourites")) { word.status = "active"; };
+                        if (await inStorage(word.word, "favourites")) { word.status = "active"; };
                     });
                 };
             };
@@ -64,8 +58,8 @@ export default function ActivePage ({page}) {
 
         case "favourites":
             let favouritesData;
-            if (typeof window !== 'undefined' && window.localStorage) {
-                favouritesData = JSON.parse(localStorage.getItem("favourites"));
+            if (typeof window !== 'undefined') {
+                messenger.send({"request-stored-data": "history"});
             };
             return (
                 <HistoryFavourites data={favouritesData} type="favourites"></HistoryFavourites>

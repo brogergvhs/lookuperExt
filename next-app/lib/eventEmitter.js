@@ -18,10 +18,12 @@ export class EventEmitter {
   _events = {};
 
   constructor(names=[]) {
-    this.registerEvent(...names);
+    if (names.length == 0) return;
+    this.registerEvent(names);
   }
 
-  registerEvent(...names) {
+  registerEvent(names) {
+    if (!Array.isArray(names)) names = [names];
     for (const name of names) {
       const event = new Event(name);
       this._events[name] = event;

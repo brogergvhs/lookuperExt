@@ -1,34 +1,28 @@
 var merger = (a, b, p) => a.filter(aa => !b.find(bb => aa[p] === bb[p])).concat(b);
 
-function inStorage (word, place) {
+async function inStorage (word, place) {
     console.log("inStorage");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-        
-        let existingData = JSON.parse(ls.getItem(place));
+    if (typeof window !== 'undefined') {   
+        let existingData = await chrome.storage.local.get(place);
         if (existingData) return existingData.some(o => o.word == word);
     }
 };
 
-function saveToStorage (currentData, place, status) {
+async function saveToStorage (currentData, place, status) {
     console.log("saveToStorage");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-
-        let existingData = JSON.parse(ls.getItem(place));
+    if (typeof window !== 'undefined') {
+        let existingData = await chrome.storage.local.get(place);
         if (existingData == null) { existingData = [] };
         existingData.push(currentData);
-        ls.setItem(place, JSON.stringify(existingData));
+        chrome.storage.local.set(existingData);
     }
 };
 
-function deleteFromStorage (wordToDelete, place, template, time) {
+async function deleteFromStorage (wordToDelete, place, template, time) {
     console.log("deleteFromStorage");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-
+    if (typeof window !== 'undefined') {
         if (!template) { template = place };
-        let existingData = JSON.parse(ls.getItem(place));
+        let existingData = await chrome.storage.local.get(place);
         if (time) { 
             for (var i = 0; i < existingData.length; i++) {
                 if (existingData[i].timestamp == time) {
@@ -52,59 +46,54 @@ function deleteFromStorage (wordToDelete, place, template, time) {
         };
         
         if (existingData.length == 0) { 
-            ls.removeItem(place);
+            chrome.storage.local.remove(place);
             // templateBuilder(template); 
         } else { 
-            ls.setItem(place, JSON.stringify(existingData)); 
+            chrome.storage.local.set(existingData); 
             // templateBuilder(template, existingData.reverse());
         }
     }
 };
 
-function savedOrganizer (searchWord) {
+async function savedOrganizer (searchWord) {
     console.log("savedOrganizer");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-
-        var historyItems;
-        var favouriteItems;
-        if (JSON.parse(ls.getItem("history"))) { historyItems = JSON.parse(ls.getItem("history")); } else { historyItems = []; };
-        if (JSON.parse(ls.getItem("favourites"))) { favouriteItems = JSON.parse(ls.getItem("favourites")); } else { favouriteItems = []; };
+    if (typeof window !== 'undefined') {
+        const storedHistoryItems = await chrome.storage.local.get("history");
+        const storedFavouriteItems = await chrome.storage.local.get("favourites");
+        var historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems : [];
+        var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems : [];
+        console.log(historyItems, favouriteItems);
         if (historyItems == [] && favouriteItems == []) { dataInterpreter(searchWord); };
+        
         var allSavedData = merger(historyItems, favouriteItems, "word");
         allSavedData = allSavedData.filter((v,i,a)=>a.findIndex(v2=>(v2.word===v.word))===i);
-
         return allSavedData;
     }
 };
 
-function fetchCounter () {
+async function fetchCounter () {
     console.log("fetch counter");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-
-        let fetchAmount = JSON.parse(ls.getItem("fetchAmount"));
+    if (typeof window !== 'undefined') {
+        let fetchAmount = await chrome.storage.local.get("fetchAmount");
         if (fetchAmount == undefined || null) {
             let fetchAmount = {time: Date.now(), amount: 2};
-            ls.setItem("fetchAmount", JSON.stringify(fetchAmount));
+            chrome.storage.local.set(fetchAmount);
         } else if (Date.now() - fetchAmount.time > 86400000) {
             fetchAmount.amount = 0;
             fetchAmount.time = Date.now();
-            ls.setItem("fetchAmount", JSON.stringify(fetchAmount));
+             chome.storage.local.set(fetchAmount);
         } else {
             fetchAmount.amount += 2;
-            ls.setItem("fetchAmount", JSON.stringify(fetchAmount));
+            chrome.storage.local.set(fetchAmount);
         }
     }
 };
 
-function getFromHistory (word) {
+async function getFromHistory (word) {
     console.log("getFromHistory");
-    if (typeof window !== 'undefined' && window.localStorage) {
-        const ls = localStorage;
-
+    if (typeof window !== 'undefined') {
         let historyItems;
-        if (JSON.parse(ls.getItem("history"))) { historyItems = JSON.parse(ls.getItem("history")); } else { historyItems = []; };
+        if (await chrome.storage.local.get("getFromHistory")) { historyItems = await chrome.storage.local.get("history"); } else { historyItems = []; };
         if (historyItems) {
             return historyItems.find((item) => item.word == word);
         }

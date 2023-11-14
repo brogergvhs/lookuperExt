@@ -3,13 +3,13 @@ import { EventEmitter } from "./eventEmitter.js";
 export class Messenger extends EventEmitter {
   #queue = [];
   #origin;
-  #recipient;
+  #defaultRecipient;
   #isAllowed;
 
-  constructor(origin, recipient, isAllowed = true) {
+  constructor(origin, defaultRecipient, isAllowed = true) {
     super();
     this.#origin = origin;
-    this.#recipient = recipient;
+    this.#defaultRecipient = defaultRecipient;
     this.#isAllowed = isAllowed;
   }
 
@@ -27,8 +27,18 @@ export class Messenger extends EventEmitter {
 
   #dispatch() {
     for (const message of this.#queue) {
-        chrome.runtime.sendMessage({
-        recipient: this.#recipient,
+      let recipient;
+      if (message.recipient) {
+        recipient = message.recipient;
+        delete message.recipient;
+      } else {
+        recipient = this.#defaultRecipient;
+      }
+      console.log("message recipient: ", recipient);
+      console.log("message: ", message)
+      chrome.runtime.sendMessage({
+        origin: this.#origin,
+        recipient: recipient,
         content: message,
       });
     }
@@ -50,6 +60,6 @@ export class Messenger extends EventEmitter {
 
   #receive(message) {
     const subject = Object.keys(message.content)[0];
-    this.emitEvent(subject, message.content[subject]);
+    this.emitEvent(subject, {origin: message.origin, data: message.content[subject]});
   }
 }
