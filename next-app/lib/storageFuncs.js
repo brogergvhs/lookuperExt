@@ -70,7 +70,6 @@ async function savedOrganizer (searchWord) {
         const storedFavouriteItems = await chrome.storage.local.get("favourites");
         var historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems["history"] : [];
         var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems["favourites"] : [];
-        console.log(historyItems, favouriteItems);
         if (historyItems == [] && favouriteItems == []) { dataInterpreter(searchWord); };
         var allSavedData = merger(historyItems, favouriteItems, "word");
         allSavedData = allSavedData.filter((v,i,a)=>a.findIndex(v2=>(v2.word===v.word))===i);
@@ -100,7 +99,6 @@ async function getFromHistory (word) {
     console.log("getFromHistory");
     if (typeof window !== 'undefined') {
         let historyItems = await chrome.storage.local.get("history")
-        console.log("HISTORY ITEMS: ", historyItems)
         if (Object.keys(historyItems).length == 0) { 
             return historyItems = []; 
         } else {

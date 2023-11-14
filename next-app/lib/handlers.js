@@ -19,7 +19,6 @@ async function saveToFavourites (ev, word) {
             const wordToSave = await getFromHistory(word);
             //let wordToSave = Object.values(wordFromHistory)[0];
             wordToSave.status = 'active';
-            console.log("wordToSave: ", wordToSave);
             saveToStorage(wordToSave, "favourites", "");
             let favButtons = document.querySelectorAll(`[data-id=favBtn-${word}]`);
             favButtons.forEach(btn => (

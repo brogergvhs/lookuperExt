@@ -19,10 +19,8 @@ export default function IndexPage () {
         console.log("no keypairs");
         setActivePage("welcome");
       } else {
-          console.log("APIKEY: ", message.data["keyPairs"][0]);
           let apiKey = message.data["keyPairs"][0]["apiKey"];
           let host = message.data["keyPairs"][0]["hostKey"];
-          console.log("api:", apiKey, "host:", host);
           if (Object.keys(apiKey).length == 0 || Object.keys(host).length == 0) setActivePage("welcome");
       }
     });
