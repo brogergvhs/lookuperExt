@@ -15,7 +15,7 @@ function init() {
         console.log(message);
         console.log(`sending ${message.data} to ${message.origin}`);
         console.log("requestedData:", returnData);
-        messenger.send({recipient: message.origin, "get-stored-data": {[message.data]: returnData}})
+        messenger.send({recipient: message.origin, "get-stored-data": returnData})
     });
     messenger.addEventListener("store-data", (entry) => {
         chrome.storage.local.set(entry.data);

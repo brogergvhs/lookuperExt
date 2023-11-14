@@ -4,7 +4,8 @@ async function inStorage (word, place) {
     console.log("inStorage");
     if (typeof window !== 'undefined') {   
         let existingData = await chrome.storage.local.get(place);
-        if (existingData) return existingData.some(o => o.word == word);
+        console.log("EXISTING DATA: ", existingData);
+        if (Object.keys(existingData).length !== 0) return existingData.some(o => o.word == word);
     }
 };
 
@@ -12,9 +13,13 @@ async function saveToStorage (currentData, place, status) {
     console.log("saveToStorage");
     if (typeof window !== 'undefined') {
         let existingData = await chrome.storage.local.get(place);
-        if (existingData == null) { existingData = [] };
+        if (Object.keys(existingData).length == 0) { 
+            existingData = []; 
+        } else {
+            existingData = existingData[place];
+        };
         existingData.push(currentData);
-        chrome.storage.local.set(existingData);
+        chrome.storage.local.set({[place]: existingData});
     }
 };
 
@@ -60,11 +65,11 @@ async function savedOrganizer (searchWord) {
     if (typeof window !== 'undefined') {
         const storedHistoryItems = await chrome.storage.local.get("history");
         const storedFavouriteItems = await chrome.storage.local.get("favourites");
-        var historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems : [];
-        var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems : [];
+        var historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems["history"] : [];
+        var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems["favourites"] : [];
         console.log(historyItems, favouriteItems);
         if (historyItems == [] && favouriteItems == []) { dataInterpreter(searchWord); };
-        
+        console.log("HISTORY ITEMS", historyItems, "FAVOURITE ITEMS", favouriteItems)
         var allSavedData = merger(historyItems, favouriteItems, "word");
         allSavedData = allSavedData.filter((v,i,a)=>a.findIndex(v2=>(v2.word===v.word))===i);
         return allSavedData;
