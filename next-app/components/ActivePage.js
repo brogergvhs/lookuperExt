@@ -48,12 +48,6 @@ export default function ActivePage ({page}) {
             );
 
         case "history":
-                if (historyData) {
-                    historyData.forEach(async (word) => {
-                        //if (word.status) { word.status = ""; };
-                        if (await inStorage(word.word, "favourites")) { word.status = "active"; };
-                    });
-                };
             return (
                 <HistoryFavourites data={historyData} type="history"></HistoryFavourites>
             );
