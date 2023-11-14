@@ -10,8 +10,8 @@ function init() {
         messenger.send({ "handshake": true });
     });
     messenger.addEventListener("request-stored-data", async (message) => {
-        const requestedData = await chrome.storage.local.get(message.data);
-        const returnData = Object.keys(requestedData).length == 0 ? null : requestedData;
+        const returnData = await chrome.storage.local.get(message.data);
+        //const returnData = Object.keys(requestedData).length == 0 ? null : requestedData;
         console.log(message);
         console.log(`sending ${message.data} to ${message.origin}`);
         console.log("requestedData:", returnData);
