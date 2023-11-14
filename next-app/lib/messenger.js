@@ -13,6 +13,11 @@ export class Messenger extends EventEmitter {
     this.#isAllowed = isAllowed;
   }
 
+  static directSend(origin, recipient, message) {
+    const messenger = new Messenger(origin, recipient);
+    messenger.send(message);
+  }
+
   listen() {
     chrome.runtime.onMessage.addListener((message, sender) => {
       if(message.recipient !== this.#origin) return;

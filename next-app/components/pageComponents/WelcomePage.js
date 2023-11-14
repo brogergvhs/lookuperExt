@@ -14,12 +14,11 @@ export default function Welcome () {
             let keyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
             let keyPairs = [];
             keyPairs.push(keyPair);
-
-            const messenger = new Messenger("welcome", "background");      
-            messenger.send(
-                {"store-data": {'keyPairs': keyPairs}}, 
+   
+            Messenger.directSend("welcome", "background",
+                [{"store-data": {'keyPairs': keyPairs}}, 
                 {"store-data": {'apiKey': apiKey}}, 
-                {"store-data": {'hostKey': host}});
+                {"store-data": {'hostKey': host}}]);
             setActivePage('wordOutput');
         };
     };
