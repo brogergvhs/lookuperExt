@@ -18,9 +18,8 @@ async function saveToFavourites (ev, word) {
     } else {
         const isInHistoryStorage = await inStorage(word, "history");
         if (isInHistoryStorage) {
-            const wordFromHistory = await getFromHistory(word);
-            console.log("wordFromHistory: ", wordFromHistory)
-            let wordToSave = Object.values(wordFromHistory)[0];
+            const wordToSave = await getFromHistory(word);
+            //let wordToSave = Object.values(wordFromHistory)[0];
             wordToSave.status = 'active';
             console.log("wordToSave: ", wordToSave);
             await saveToStorage(wordToSave, "favourites", "");
