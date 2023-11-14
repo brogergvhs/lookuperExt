@@ -5,7 +5,11 @@ async function inStorage (word, place) {
     if (typeof window !== 'undefined') {   
         let existingData = await chrome.storage.local.get(place);
         console.log("EXISTING DATA: ", existingData);
-        if (Object.keys(existingData).length !== 0) return existingData.some(o => o.word == word);
+        if (Object.keys(existingData).length !== 0) {
+            console.log("EXISTING DATA: ", Object.values(existingData)[0]);
+            return Object.values(existingData)[0].some(o => o.word == word);
+        }
+        
     }
 };
 
@@ -13,6 +17,7 @@ async function saveToStorage (currentData, place, status) {
     console.log("saveToStorage");
     if (typeof window !== 'undefined') {
         let existingData = await chrome.storage.local.get(place);
+        console.log("EXISTING DATA: ", existingData)
         if (Object.keys(existingData).length == 0) { 
             existingData = []; 
         } else {
@@ -97,11 +102,16 @@ async function fetchCounter () {
 async function getFromHistory (word) {
     console.log("getFromHistory");
     if (typeof window !== 'undefined') {
-        let historyItems;
-        if (await chrome.storage.local.get("getFromHistory")) { historyItems = await chrome.storage.local.get("history"); } else { historyItems = []; };
-        if (historyItems) {
-            return historyItems.find((item) => item.word == word);
+        let historyItems = await chrome.storage.local.get("history")
+        console.log("HISTORY ITEMS: ", historyItems)
+        if (Object.keys(historyItems).length == 0) { 
+            return historyItems = []; 
+        } else {
+            return Object.values(historyItems)[0].find((item) => item.word == word);
         }
+        
+    } else {
+        throw new Error("window is undefined in getFromHistory");
     }
 };
 

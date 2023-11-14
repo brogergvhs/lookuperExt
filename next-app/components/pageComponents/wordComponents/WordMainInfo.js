@@ -28,7 +28,7 @@ export default function WordMainInfo ({ word, favourite, frequency, pronounciati
                 </div>
             </div>
             <button data-id={`favBtn-${word}`} 
-                onClick={async (ev) => await saveToFavourites(ev, word)} 
+                onClick={(ev) => saveToFavourites(ev, word)} 
                 className={`${favourite ? 'active' : ''} btn-outline-info  flex items-center justify-center w-8 h-8 m-4 border border-solid rounded-md`}
             >
                 <HiBookmark />
