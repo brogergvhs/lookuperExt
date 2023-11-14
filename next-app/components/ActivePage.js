@@ -21,6 +21,7 @@ export default function ActivePage ({page}) {
 
     useEffect(() => {
         console.log("PAGE:" , activePage)
+        if (activePage !== "history" && activePage !== "favourites") return;
         if (typeof window !== 'undefined') {
             messenger.listen();
             messenger.addEventListener("get-stored-data", (message) => {

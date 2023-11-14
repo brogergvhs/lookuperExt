@@ -3,14 +3,12 @@ const { inStorage, deleteFromStorage, saveToStorage, getFromHistory } = require(
 async function saveToFavourites (ev, word) {
     ev.stopPropagation();
     let isInStorage = await inStorage(word, "favourites");
-    if (!isInStorage) isInStorage = {};
-    console.log("FAV word is in Storage: ", isInStorage)
-    if (Object.keys(isInStorage).length !== 0) {
+    if (isInStorage) {
         deleteFromStorage(word, "favourites", "favs");
-        let wordToChange = await getFromHistory(word);
+        /* let wordToChange = await getFromHistory(word);
         wordToChange.favourite = false;
         console.log("wordToChange: ", wordToChange);
-        saveToStorage(wordToChange, "history", "");
+        //saveToStorage(wordToChange, "history", ""); */
         let favButtons = document.querySelectorAll(`[data-id=favBtn-${word}]`);
         favButtons.forEach(btn => (
             btn.classList.remove("active")
@@ -22,7 +20,7 @@ async function saveToFavourites (ev, word) {
             //let wordToSave = Object.values(wordFromHistory)[0];
             wordToSave.status = 'active';
             console.log("wordToSave: ", wordToSave);
-            await saveToStorage(wordToSave, "favourites", "");
+            saveToStorage(wordToSave, "favourites", "");
             let favButtons = document.querySelectorAll(`[data-id=favBtn-${word}]`);
             favButtons.forEach(btn => (
                 btn.classList.add("active")

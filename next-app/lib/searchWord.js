@@ -23,7 +23,7 @@ async function getData(searchWord, setActivePage, setWordData) {
         }
         setActivePage("wordOutput");
         setWordData(wordData);
-        await saveToStorage(wordData, "history");
+        saveToStorage(wordData, "history");
     } else { 
         dataInterpreter(searchWord, setActivePage, setWordData);
     }

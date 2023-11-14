@@ -4,9 +4,7 @@ async function inStorage (word, place) {
     console.log("inStorage");
     if (typeof window !== 'undefined') {   
         let existingData = await chrome.storage.local.get(place);
-        console.log("EXISTING DATA: ", existingData);
         if (Object.keys(existingData).length !== 0) {
-            console.log("EXISTING DATA: ", Object.values(existingData)[0]);
             return Object.values(existingData)[0].some(o => o.word == word);
         }
         
@@ -17,7 +15,6 @@ async function saveToStorage (currentData, place, status) {
     console.log("saveToStorage");
     if (typeof window !== 'undefined') {
         let existingData = await chrome.storage.local.get(place);
-        console.log("EXISTING DATA: ", existingData)
         if (Object.keys(existingData).length == 0) { 
             existingData = []; 
         } else {
@@ -32,7 +29,8 @@ async function deleteFromStorage (wordToDelete, place, template, time) {
     console.log("deleteFromStorage");
     if (typeof window !== 'undefined') {
         if (!template) { template = place };
-        let existingData = await chrome.storage.local.get(place);
+        let existingDataFromStorage = await chrome.storage.local.get(place);
+        let existingData = Object.values(existingDataFromStorage)[0];
         if (time) { 
             for (var i = 0; i < existingData.length; i++) {
                 if (existingData[i].timestamp == time) {
@@ -59,7 +57,7 @@ async function deleteFromStorage (wordToDelete, place, template, time) {
             chrome.storage.local.remove(place);
             // templateBuilder(template); 
         } else { 
-            chrome.storage.local.set(existingData); 
+            chrome.storage.local.set({[place]: existingData}); 
             // templateBuilder(template, existingData.reverse());
         }
     }
@@ -74,7 +72,6 @@ async function savedOrganizer (searchWord) {
         var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems["favourites"] : [];
         console.log(historyItems, favouriteItems);
         if (historyItems == [] && favouriteItems == []) { dataInterpreter(searchWord); };
-        console.log("HISTORY ITEMS", historyItems, "FAVOURITE ITEMS", favouriteItems)
         var allSavedData = merger(historyItems, favouriteItems, "word");
         allSavedData = allSavedData.filter((v,i,a)=>a.findIndex(v2=>(v2.word===v.word))===i);
         return allSavedData;
