@@ -39,10 +39,6 @@ export class Messenger extends EventEmitter {
       } else {
         recipient = this.#defaultRecipient;
       }
-      /* console.log(`%cmessage recipient:`, "color: green;");
-      console.log(recipient);
-      console.log(`%cmessage:`, "color:green;")
-      console.log(message); */
       chrome.runtime.sendMessage({
         origin: this.#origin,
         recipient: recipient,

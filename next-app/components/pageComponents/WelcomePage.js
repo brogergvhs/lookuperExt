@@ -11,14 +11,10 @@ export default function Welcome () {
 
     function finishSetup() {
         if (apiKey && host) {
-            let keyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
-            let keyPairs = [];
-            keyPairs.push(keyPair);
-   
+            let keyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };   
             Messenger.directSend("welcome", "background",
-                [{"store-data": {'keyPairs': keyPairs}}, 
-                {"store-data": {'apiKey': apiKey}}, 
-                {"store-data": {'hostKey': host}}]);
+                [{"store-data": {'keyPairs': [keyPair]}}, 
+                {"store-data": {'activePair': keyPair}}]);
             setActivePage('wordOutput');
         };
     };

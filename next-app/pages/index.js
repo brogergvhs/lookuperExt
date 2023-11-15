@@ -15,12 +15,12 @@ export default function IndexPage () {
     messenger.registerEvent(["get-stored-data"]);
     messenger.addEventListener("get-stored-data", (message) => {
       console.log("index received stored data");
-      if (!message.data["keyPairs"]) {
-        console.log("no keypairs");
+      if (!message.data["activePair"]) {
+        console.log("no active API keyPair");
         setActivePage("welcome");
       } else {
-          let apiKey = message.data["keyPairs"][0]["apiKey"];
-          let host = message.data["keyPairs"][0]["hostKey"];
+          let apiKey = message.data["activePair"]["apiKey"];
+          let host = message.data["activePair"]["hostKey"];
           if (Object.keys(apiKey).length == 0 || Object.keys(host).length == 0) setActivePage("welcome");
       }
     });
@@ -29,7 +29,9 @@ export default function IndexPage () {
   useEffect(() => {
     if (typeof window !== 'undefined') {    
     console.log("sending handshake from index...");
-    new Messenger("index", "background").send([{ "handshake": true },{"request-stored-data": "keyPairs"}]);
+    Messenger.directSend(
+      "index", "background", 
+      [{ "handshake": true },{"request-stored-data": "activePair"}])
     };
   }, []);
 

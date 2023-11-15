@@ -90,10 +90,10 @@ async function savedOrganizer (searchWord) {
     if (typeof window !== 'undefined') {
         const storedHistoryItems = await chrome.storage.local.get("history");
         const storedFavouriteItems = await chrome.storage.local.get("favourites");
-        var historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems["history"] : [];
-        var favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems["favourites"] : [];
+        const historyItems = Object.values(storedHistoryItems).length !== 0 ? storedHistoryItems["history"] : [];
+        const favouriteItems =  Object.values(storedFavouriteItems).length !== 0 ? storedFavouriteItems["favourites"] : [];
         if (historyItems == [] && favouriteItems == []) { dataInterpreter(searchWord); };
-        var allSavedData = merger(historyItems, favouriteItems, "word");
+        let allSavedData = merger(historyItems, favouriteItems, "word");
         allSavedData = allSavedData.filter((v,i,a)=>a.findIndex(v2=>(v2.word===v.word))===i);
         return allSavedData;
     }
