@@ -12,7 +12,7 @@ export default function HistoryFavourites ({ type, data }) {
             <div className="max-h-[calc(100vh-140px)] overflow-auto">
                 {data.toReversed().map((h, index) => (
                     <WordLine clickAction={() => searchWord(h.word, setActivePage, setWordData)} type={type} key={`${index}`} 
-                        word={h.word} pronounciation={h.pronounciation} mainDef={h.mainDef} timestamp={h.timestamp} status={h.status}
+                        word={h.word} pronounciation={h.pronounciation} mainDef={h.mainDef} timestamp={h.timestamp} favourite={h.favourite}
                     ></WordLine>
                 ))}
             </div>
