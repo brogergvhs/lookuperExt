@@ -1,4 +1,4 @@
-import { inStorage } from "@/lib/storageFuncs";
+import React from "react";
 import { useEffect, useContext, useState } from "react";
 import CustomLoader from "./loaders/CustomLoader";
 import WordNotFound from "./pageComponents/ErrorPage";
@@ -9,15 +9,17 @@ import WordOutput from "./pageComponents/WordOutputPage";
 import { GeneralDataContext } from "./WordDataProvider";
 
 import { Messenger } from "@/lib/messenger";
+import { IWordData, TGenDataProvider } from "@/types/generalData";
 
-export default function ActivePage ({page}) {
-    const {activePage} = useContext(GeneralDataContext);
-
+export default function ActivePage () {
+    const {activePage} = useContext(GeneralDataContext) as TGenDataProvider;
 
     const messenger = new Messenger("active-page", "background", true);
     messenger.registerEvent(["handshake", "get-stored-data"]);
-    const [historyData, setHistoryData] = useState(null);
-    const [favouritesData, setFavouritesData] = useState(null);
+
+    // define types for fav/histData
+    const [historyData, setHistoryData] = useState<IWordData[] | null>(null);
+    const [favouritesData, setFavouritesData] = useState<IWordData[] | null>(null);
 
     useEffect(() => {
         console.log("PAGE:" , activePage)

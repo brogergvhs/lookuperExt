@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CustomLoader from "./CustomLoader";
 
 export default function LoaderPicker () {
@@ -13,10 +13,10 @@ export default function LoaderPicker () {
     ];
 
     return (<>
-        <div class="btn-group shadow-0" role="group" aria-label="Basic example">
+        <div className="btn-group shadow-0" role="group" aria-label="Basic example">
             {loadersList.map((loader) => (
-                <button key={loader.type} onClick={(ev) => setActiveLoader(ev.target.value)} 
-                    value={loader.type} class="btn btn-sm btn-outline-secondary loaderPicker {{#if data.pac}}active{{/if}}"
+                <button key={loader.type} onClick={(ev) => setActiveLoader((ev.target as HTMLInputElement).value)} 
+                    value={loader.type} className="btn btn-sm btn-outline-secondary loaderPicker {{#if data.pac}}active{{/if}}"
                 >
                     {loader.name}
                 </button>

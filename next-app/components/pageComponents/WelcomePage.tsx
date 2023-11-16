@@ -1,18 +1,20 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import NumberCircle from "../generalComponents/NumberCircle";
 import { GeneralDataContext } from "../WordDataProvider";
 
 import { Messenger } from "../../lib/messenger";
+import { TGenDataProvider } from "@/types/generalData";
+import { IKeyPair } from "@/types/keyPair";
 
 export default function Welcome () {
-    const {setActivePage} = useContext(GeneralDataContext);
-    const [apiKey, setApiKey] = useState('');
-    const [host, setHost] = useState('wordsapiv1.p.rapidapi.com');
+    const {setActivePage} = useContext(GeneralDataContext) as TGenDataProvider;
+    const [apiKey, setApiKey] = useState<string>('');
+    const [host, setHost] = useState<string>('wordsapiv1.p.rapidapi.com');
 
     function finishSetup() {
         if (apiKey && host) {
-            let keyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
-            let keyPairs = [];
+            let keyPair: IKeyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
+            let keyPairs: IKeyPair[] = [];
             keyPairs.push(keyPair);
    
             Messenger.directSend("welcome", "background",

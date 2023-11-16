@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { GeneralDataContext } from "./WordDataProvider";
 import CustomInput from "./pageComponents/wordComponents/CustomInput";
 import { HiStar, HiClock } from 'react-icons/hi';

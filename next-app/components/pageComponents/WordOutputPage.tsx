@@ -1,25 +1,31 @@
-import { useContext } from "react";
+import { TGenDataProvider } from "@/types/generalData";
+import React, { useContext } from "react";
 import NumberCircle from "../generalComponents/NumberCircle"
 import { GeneralDataContext } from "../WordDataProvider";
 import WordCrumb from "./wordComponents/WordCrumb"
 import WordMainInfo from "./wordComponents/WordMainInfo"
 
 export default function WordOutput () {
-    let {wordData} = useContext(GeneralDataContext);
+    let {wordData} = useContext(GeneralDataContext) as TGenDataProvider;
     let transformedDefData;
-    if (wordData.definitions) {
-        transformedDefData = Object.values(wordData.definitions);
-        console.log("word:", transformedDefData);
-    }
+    if (wordData) {
+        console.log(wordData)
+        if (wordData.definitions) {
+            transformedDefData = Object.values(wordData.definitions);
+            console.log("word:", transformedDefData);
+        };
+    };
 
     return (<>
-        <WordMainInfo word={wordData.word} favourite={wordData.favourite} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
-        {wordData.descr_message && (
-            <div className="mt-2">
-                <span className="acc-color">Sorry,</span>
-                {wordData.descr_message}
-            </div>
-        )}
+        {wordData && (<>
+            <WordMainInfo word={wordData.word} favourite={wordData.favourite} frequency={wordData.frequency} pronounciation={wordData.pronounciation}></WordMainInfo>
+            {wordData.descr_message && (
+                <div className="mt-2">
+                    <span className="acc-color">Sorry,</span>
+                    {wordData.descr_message}
+                </div>
+            )}
+        </>)}
         {transformedDefData && transformedDefData.map((defSection, index) => (<>
             <div key={`defTypeName-${index}`} className="capitalize">{defSection[0].partOfSpeech}</div>
             <div key={`defType-${index}`} className="flex flex-col h-full">

@@ -1,13 +1,13 @@
-import Layout from '@/components/Layout';
-import ActivePage from '@/components/ActivePage';
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Nav from '@/components/Nav';
-import { GeneralDataContext } from '@/components/WordDataProvider';
-
+import Layout from '@/components/Layout';
 import { Messenger } from '@/lib/messenger';
+import ActivePage from '@/components/ActivePage';
+import { GeneralDataContext } from '@/components/WordDataProvider';
+import { TGenDataProvider } from '@/types/generalData';
 
 export default function IndexPage () {
-  const {activePage, setActivePage} = useContext(GeneralDataContext);
+  const {activePage, setActivePage} = useContext(GeneralDataContext) as TGenDataProvider;
 
   if (typeof window !== 'undefined') {
     const messenger = new Messenger("index", "background");
