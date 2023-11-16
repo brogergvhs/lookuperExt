@@ -1,16 +1,18 @@
 import { clearHistory } from "@/lib/handlers";
 import searchWord from "@/lib/searchWord";
-import { useContext } from "react";
+import { TGenDataProvider } from "@/types/generalData";
+import { THistFavProps } from "@/types/pageTypes";
+import React, { useContext } from "react";
 import { GeneralDataContext } from "../WordDataProvider";
 import WordLine from "./histFavComponents/WordLine";
 
-export default function HistoryFavourites ({ type, data }) {
-    const {setWordData, setActivePage} = useContext(GeneralDataContext);
+export default function HistoryFavourites ({ type, data }: THistFavProps) {
+    const {setWordData, setActivePage} = useContext(GeneralDataContext) as TGenDataProvider;
 
     return (<>
         {data ? (<>
             <div className="max-h-[calc(100vh-140px)] overflow-auto">
-                {data.toReversed().map((h, index) => (
+                {data.reverse().map((h, index) => (
                     <WordLine clickAction={() => searchWord(h.word, setActivePage, setWordData)} type={type} key={`${index}`} 
                         word={h.word} pronounciation={h.pronounciation} mainDef={h.mainDef} timestamp={h.timestamp} favourite={h.favourite}
                     ></WordLine>

@@ -4,7 +4,7 @@ import { GeneralDataContext } from "../WordDataProvider";
 
 import { Messenger } from "../../lib/messenger";
 import { TGenDataProvider } from "@/types/generalData";
-import { IKeyPair } from "@/types/keyPair";
+import { TKeyPair } from "@/types/pageTypes";
 
 export default function Welcome () {
     const {setActivePage} = useContext(GeneralDataContext) as TGenDataProvider;
@@ -13,8 +13,8 @@ export default function Welcome () {
 
     function finishSetup() {
         if (apiKey && host) {
-            let keyPair: IKeyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
-            let keyPairs: IKeyPair[] = [];
+            let keyPair: TKeyPair = {'apiKey': apiKey, 'hostKey': host, 'id': Date.now() };
+            let keyPairs: TKeyPair[] = [];
             keyPairs.push(keyPair);
    
             Messenger.directSend("welcome", "background",

@@ -1,7 +1,9 @@
+import React from "react";
 import { deleteFromHistory, toggleFavourites } from "@/lib/handlers";
 import { HiBookmark, HiTrash } from 'react-icons/hi';
+import { TWordLine } from "@/types/pageTypes";
 
-export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp, favourite }) {
+export default function WordLine ({ type, clickAction, word, pronounciation, mainDef, timestamp, favourite }: TWordLine) {
     
     return (<>
         <div id={timestamp} onClick={clickAction} className={`flex justify-between w-full b-b-acc acc p-2 historyItem mb-2 ${type === 'favourites' ? 'fav' : ''}`}>

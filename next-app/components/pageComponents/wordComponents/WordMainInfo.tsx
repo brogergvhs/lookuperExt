@@ -1,9 +1,8 @@
-import { GeneralDataContext } from "@/components/WordDataProvider";
 import { toggleFavourites } from "@/lib/handlers";
-import { useContext } from "react";
+import { TWordMainInfo } from "@/types/pageTypes";
 import { HiBookmark } from 'react-icons/hi';
 
-export default function WordMainInfo ({ word, favourite, frequency, pronounciation }) {
+export default function WordMainInfo ({ word, favourite, frequency, pronounciation }: TWordMainInfo) {
 
     return (<>
     {word ? (

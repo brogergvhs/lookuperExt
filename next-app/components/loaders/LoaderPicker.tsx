@@ -1,10 +1,11 @@
+import { TLoadersList } from "@/types/general";
 import React, { useState } from "react";
 import CustomLoader from "./CustomLoader";
 
 export default function LoaderPicker () {
-    const [activeLoader, setActiveLoader] = useState('packman');
+    const [activeLoader, setActiveLoader] = useState<string>('packman');
 
-    const loadersList = [
+    const loadersList: TLoadersList[] = [
         {type: "packman", name: "Pack man"},
         {type: "cube", name: "Cube"},
         {type: "lines", name: "Lines"},

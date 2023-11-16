@@ -11,6 +11,7 @@ export interface IWordData {
     mainDef?: string,
     favourite?: boolean,
     frequency: number,
+    timestamp: number,
     definitions: {
         [key: string]: IDefinitionData[]
     }

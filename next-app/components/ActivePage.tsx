@@ -17,7 +17,6 @@ export default function ActivePage () {
     const messenger = new Messenger("active-page", "background", true);
     messenger.registerEvent(["handshake", "get-stored-data"]);
 
-    // define types for fav/histData
     const [historyData, setHistoryData] = useState<IWordData[] | null>(null);
     const [favouritesData, setFavouritesData] = useState<IWordData[] | null>(null);
 

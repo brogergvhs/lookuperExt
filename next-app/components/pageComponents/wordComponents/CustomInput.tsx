@@ -1,12 +1,13 @@
 import { GeneralDataContext } from "@/components/WordDataProvider";
 import searchWord from "@/lib/searchWord";
-import { useContext, useState } from "react";
+import { TGenDataProvider } from "@/types/generalData";
+import React, { useContext, useState } from "react";
 import { HiSearch } from 'react-icons/hi';
 
 export default function CustomInput () { 
-    const {setActivePage, setWordData} = useContext(GeneralDataContext);
-    const [wordToSearch, setWordToSearch] = useState('');
-    function searchClick () {
+    const {setActivePage, setWordData} = useContext(GeneralDataContext) as TGenDataProvider;
+    const [wordToSearch, setWordToSearch] = useState<string>('');
+    function searchClick (): void {
         searchWord(wordToSearch, setActivePage, setWordData);
         setWordToSearch('');
     }

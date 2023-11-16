@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CustomLoader({type}) {
+export default function CustomLoader({type}: {type: string}) {
 
   switch (type) {
     case "packman":

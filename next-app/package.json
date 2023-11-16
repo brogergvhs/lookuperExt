@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/chrome": "^0.0.251",
     "@types/node": "^20.9.0",
     "@types/react": "^18.2.37",
     "next": "13.5",
@@ -17,6 +18,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "touch-cli": "^0.0.1",
+    "ts-loader": "^9.5.1",
     "webextension-polyfill": "^0.10.0",
     "webpack": "^5.89.0"
   },

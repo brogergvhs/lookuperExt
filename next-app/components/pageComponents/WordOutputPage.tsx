@@ -8,12 +8,9 @@ import WordMainInfo from "./wordComponents/WordMainInfo"
 export default function WordOutput () {
     let {wordData} = useContext(GeneralDataContext) as TGenDataProvider;
     let transformedDefData;
-    if (wordData) {
-        console.log(wordData)
-        if (wordData.definitions) {
-            transformedDefData = Object.values(wordData.definitions);
-            console.log("word:", transformedDefData);
-        };
+    if (wordData && wordData.definitions) {
+        transformedDefData = Object.values(wordData.definitions);
+        console.log("word:", transformedDefData);
     };
 
     return (<>
