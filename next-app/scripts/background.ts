@@ -10,7 +10,14 @@ function init() {
         messenger.send({ "handshake": true });
     });
     messenger.addEventListener("request-stored-data", async (message) => {
-        let returnData = await chrome.storage.local.get(message.data);
+        let returnData: object = await new Promise((resolve, reject) => {
+            chrome.storage.local.get(message.data, (items: object) => {
+              if (chrome.runtime.lastError) {
+                return reject(chrome.runtime.lastError);
+              }
+              resolve(items);
+            });
+          });
         messenger.send({recipient: message.origin, "get-stored-data": returnData})
     });
     messenger.addEventListener("store-data", (entry) => {

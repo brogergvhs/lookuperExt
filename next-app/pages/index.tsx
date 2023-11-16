@@ -28,8 +28,9 @@ export default function IndexPage () {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {    
-    console.log("sending handshake from index...");
-    new Messenger("index", "background").send([{ "handshake": true },{"request-stored-data": "keyPairs"}]);
+      console.log("sending handshake from index...");
+      Messenger.directSend("index", "background", 
+      [{ "handshake": true },{"request-stored-data": "keyPairs"}]);
     };
   }, []);
 

@@ -11,8 +11,8 @@ export interface Events {
   [key: string]: Event;
 }
 
-export type Message = {
+export interface Message {
+  origin?: string,
   recipient?: string,
-  // needs a proper type/interface here
-  [content: string]: any
+  [title: string]: object | string | boolean;
 }

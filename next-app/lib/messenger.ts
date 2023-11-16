@@ -12,7 +12,7 @@ export class Messenger extends EventEmitter {
     super();
   }
 
-  static directSend(origin: string, recipient: string, message: Message): void {
+  static directSend(origin: string, recipient: string, message: Message | Message[]): void {
     const messenger = new Messenger(origin, recipient);
     messenger.send(message);
   }
@@ -32,7 +32,7 @@ export class Messenger extends EventEmitter {
 
   private dispatch(): void {
     for (const message of this.queue) {
-      let recipient;
+      let recipient: string;
       if (message.recipient) {
         recipient = message.recipient;
         delete message.recipient;
