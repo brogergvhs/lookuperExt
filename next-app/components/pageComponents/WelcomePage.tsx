@@ -18,9 +18,8 @@ export default function Welcome () {
             keyPairs.push(keyPair);
    
             Messenger.directSend("welcome", "background",
-                [{"store-data": {'keyPairs': keyPairs}}, 
-                {"store-data": {'apiKey': apiKey}}, 
-                {"store-data": {'hostKey': host}}]);
+                [{"store-data": {'keyPairs': [keyPair]}}, 
+                {"store-data": {'activePair': keyPair}}]);
             setActivePage('wordOutput');
         };
     };

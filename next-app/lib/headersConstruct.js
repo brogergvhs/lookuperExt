@@ -1,4 +1,4 @@
-var fetchDataFunc = async function () {
+const fetchDataFunc = async function () {
     let storedKeyPairs = await chrome.storage.local.get('keyPairs');
     let apiKey = storedKeyPairs["keyPairs"][0]["apiKey"];
     let host = storedKeyPairs["keyPairs"][0]["hostKey"];
