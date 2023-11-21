@@ -19,11 +19,10 @@ export default function Layout({children}) {
     }
     function onMouseUp(): void {
       document.body.removeEventListener("mousemove", onMouseMove);
-      document.body.removeEventListener("mouseup", onMouseUp);
     }
     
     document.body.addEventListener("mousemove", onMouseMove);
-    document.body.addEventListener("mouseup", onMouseUp, { once: true });
+    document.body.addEventListener("mouseup", onMouseUp);
   };
 
   return (
